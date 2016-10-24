@@ -162,6 +162,9 @@ class ReadBuffer(object):
             read_len = max(self._chunk_size, length - len(self._buffer))
             self._buffer += self._stream.read(read_len)
 
+        # if stream was closed before enough characters were received
+        return None
+
     def read_line(self, sep=six.b('\n')):
         """Read the data stream until a given separator is found (default \n)
 
@@ -324,6 +327,8 @@ class Stream(object):
                     raise TweepError('Expecting length, unexpected value found')
 
             next_status_obj = buf.read_len(length)
+            if next_status_obj is None:  # the stream is closed
+                break
             if self.running:
                 self._data(next_status_obj)
 
