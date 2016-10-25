@@ -250,6 +250,7 @@ class Stream(object):
                                             auth=auth,
                                             verify=self.verify)
                 if resp.status_code != 200:
+                    logging.error(resp.text)
                     if self.listener.on_error(resp.status_code) is False:
                         break
                     error_counter += 1
