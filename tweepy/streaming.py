@@ -90,6 +90,7 @@ class StreamListener(object):
 
     def on_exception(self, exception):
         """Called when an unhandled exception occurs."""
+        logging.exception(exception)
         return
 
     def on_delete(self, status_id, user_id):
