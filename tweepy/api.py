@@ -631,6 +631,7 @@ class API(object):
             )(**kargs)
         except TweepError as e:
             if e.response and e.response.status == 401:
+                print(e.response.content)
                 return False
             raise
 
